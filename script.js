@@ -1,7 +1,7 @@
-// API Key
+
 const API_KEY = "168771779c71f3d64106d8a88376808a";
 
-// Tab Switching 
+
 const userTab = document.querySelector("[data-userWeather]");
 const searchTab = document.querySelector("[data-searchWeather]");
 const searchForm = document.querySelector("[data-searchForm]");
@@ -19,20 +19,17 @@ const errorImage = document.querySelector('[data-errorImg]');
 let currentTab = userTab;
 currentTab.classList.add("currentTab");
 getFromSessionStorage();
-// console.log(userTab);
-// console.log(searchTab);
+
 
 function switchTab(newTab) {
     notFound.classList.remove("active");
-    // check if newTab is already selected or not 
+ 
     if (currentTab != newTab) {
         currentTab.classList.remove("currentTab");
         currentTab = newTab;
         currentTab.classList.add("currentTab");
 
-        // Check which TAb is Selected - search / your
-
-        // If Search Form not contains active class then add  [Search Weather]
+      
         if (!searchForm.classList.contains("active")) {
             searchForm.classList.add("active");
             userInfoContainer.classList.remove("active");
@@ -58,9 +55,7 @@ searchTab.addEventListener('click', () => {
 
 function getFromSessionStorage() {
     const localCoordinates = sessionStorage.getItem("userCoordinates");
-    // console.log(localCoordinates);
 
-    // Local Coordinates Not present - Grant Access Container
     if (!localCoordinates) {
         grantAccessContainer.classList.add('active');
     }
@@ -72,13 +67,13 @@ function getFromSessionStorage() {
 
 async function fetchWeatherInfo(coordinates) {
     const { lat, lon } = coordinates;
-    // Remove Active Class from the Grant access Container
+   
     grantAccessContainer.classList.remove('active');
 
-    // loading 
+
     loadingContainer.classList.add('active');
 
-    // try - catch Block
+
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
 
@@ -100,7 +95,7 @@ async function fetchWeatherInfo(coordinates) {
     }
 }
 
-// Render Weather On UI
+
 function renderWeatherInfo(weatherInfo) {
     const cityName = document.querySelector('[data-cityName]');
     const countryFlag = document.querySelector('[data-countryFlag]');
@@ -144,7 +139,7 @@ function showPosition(position) {
 grantAccessButton.addEventListener('click', getLocation);
 
 
-// Search for weather
+
 const searchInput = document.querySelector('[data-searchInput]');
 
 searchForm.addEventListener('submit', (e) => {
@@ -152,7 +147,7 @@ searchForm.addEventListener('submit', (e) => {
     if (searchInput.value === "") {
         return;
     }
-    // console.log(searchInput.value);
+   
     fetchSearchWeatherInfo(searchInput.value);
     searchInput.value = "";
 });
